@@ -3,7 +3,6 @@ import requests
 import openpyxl
 import time
 
-#Open worksheet - refernce https://automatetheboringstuff.com/chapter12/
 wb = openpyxl.load_workbook('List of HDB Address.xlsx')
 sheet = wb['sheet1']
 
@@ -16,16 +15,11 @@ for row in range(2,sheet.max_row+1):
         elif count < 200: #retrive 
             query_address=sheet['A' + str(row)].value
 
-#import request - reference https://realpython.com/api-integration-in-python/
-#formulate query string       
             query_string='https://developers.onemap.sg/commonapi/search?searchVal='+str(query_address)+'&returnGeom=Y&getAddrDetails=N&pageNum=1'
             resp = requests.get(query_string)
         
-#Convert JSON into Python Object - refernce https://www.dataquest.io/blog/python-api-tutorial/
             data=json.loads(resp.content)
-        #print(type(data))
 
-#Extract data from JSON - reference https://www.youtube.com/watch?v=g4wdm488mkE
             try:
                 sheet['B' + str(row)]=data['results'][0]['LONGITUDE']
                 sheet['C' + str(row)]=data['results'][0]['LATITUDE']
@@ -49,7 +43,6 @@ for row in range(2,sheet.max_row+1):
             time.sleep(15)
             count = 0
 
-#Save excel file - reference https://automatetheboringstuff.com/chapter12/
         wb.save('List of HDB Address.xlsx')
         
 print('Done.')
