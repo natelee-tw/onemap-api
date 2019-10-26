@@ -15,7 +15,7 @@ for row in range(2,sheet.max_row+1):
         elif count < 200: #retrive 
             query_address=sheet['A' + str(row)].value
 
-            query_string='https://developers.onemap.sg/commonapi/search?searchVal='+str(query_address)+'&returnGeom=Y&getAddrDetails=N&pageNum=1'
+            query_string='https://developers.onemap.sg/commonapi/search?searchVal='+str(query_address)+'&returnGeom=Y&getAddrDetails=Y&pageNum=1'
             resp = requests.get(query_string)
         
             data=json.loads(resp.content)
